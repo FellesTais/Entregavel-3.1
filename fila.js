@@ -67,21 +67,24 @@ export class Queue {
    * Retorna o valor do primeiro elemento da fila sem removê-lo.
    * Se a fila estiver vazia, retorne null ou undefined.
    */
-  peek() {
-    // Implementar aqui
+ peek() {
+    return this.head ? this.head.value : null;
   }
 
   /**
    * Retorna um booleano: true se a fila não tiver elementos, false caso contrário.
    */
-  isEmpty() {
-    // Implementar aqui
+
+ isEmpty() {
+    return this.size === 0;
   }
 
   /**
    * Retorna a quantidade atual de elementos na fila.
    */
   length() {
+
+    return this.size == 0;
     // Sugestão: mudar nome de size() para length() para evitar conflito com a propriedade this.size
     // Implementar aqui
   }
@@ -90,6 +93,10 @@ export class Queue {
    * Remove todos os elementos da fila, resetando head, tail e size.
    */
   clear() {
+
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
     // Implementar aqui
   }
 
@@ -98,7 +105,12 @@ export class Queue {
    * Retorna true ou false.
    */
   includes(value) {
-    // Implementar aqui (Dica: use um loop similar ao print)
+    let current = this.head;
+    while (current !== null) {
+        if(current.value === value) return true;
+        current = current.next;
+    }
+    return false;
   }
 
   /**
@@ -106,7 +118,13 @@ export class Queue {
    * mantendo a ordem do primeiro (índice 0) ao último.
    */
   toArray() {
-    // Implementar aqui
+    const result = [];
+    let current = this.head;
+    while (current !== null) {
+    result.push(current.value);
+    current = current.next;
+  }
+  return result;
   }
 
   /**
@@ -114,6 +132,16 @@ export class Queue {
    * com os resultados, seguindo o comportamento do Array.map().
    */
   map(callback) {
+
+    const newQueue = new Queue();
+    let current = this.head;
+    while (current !== null) {
+        newQueue.queue(callback(current.value));
+        current = current.next;
+    }
+    return newQueue
+
+
     // Implementar aqui
   }
 
@@ -122,14 +150,27 @@ export class Queue {
    * no teste implementado pela função callback (deve retornar true).
    */
   filter(callback) {
-    // Implementar aqui
+  const newQueue = new Queue();
+  let current = this.head;
+  while (current !== null) {
+    if (callback(current.value)) newQueue.queue(current.value);
+    current = current.next;
   }
+  return newQueue;
+}
 
   /**
    * Executa uma função redutora sobre cada elemento da fila, resultando em um único valor de retorno.
    * (Ex: somar todos os valores).
    */
   reduce(callback, initialValue) {
-    // Implementar aqui
+  let accumulator = initialValue;
+  let current = this.head;
+  while (current !== null) {
+    accumulator = callback(accumulator, current.value);
+    current = current.next;
+  }
+  return accumulator;
+    // Implementar aqui manu
   }
 }
