@@ -83,10 +83,7 @@ export class Queue {
    * Retorna a quantidade atual de elementos na fila.
    */
   length() {
-
-    return this.size == 0;
-    // Sugestão: mudar nome de size() para length() para evitar conflito com a propriedade this.size
-    // Implementar aqui
+    return this.size;
   }
 
   /**
